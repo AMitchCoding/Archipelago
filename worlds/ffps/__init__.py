@@ -119,7 +119,7 @@ class FFPSWorld(World):
 
     def set_rules(self):
         set_rules(self, self.player)
-        set_completion_rules(self.multiworld, self.player)
+        set_completion_rules(self.multiworld, self.player, self.options)
 
     def create_regions(self):
         def FFPSRegion(region_name: str, exits):

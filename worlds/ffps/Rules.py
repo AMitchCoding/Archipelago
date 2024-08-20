@@ -2,6 +2,7 @@ from ..generic.Rules import set_rule
 from BaseClasses import MultiWorld, CollectionState
 from typing import TYPE_CHECKING
 from .Locations import money_table
+from .Options import FFPSOptions
 
 if TYPE_CHECKING:
     from . import FFPSWorld
@@ -278,11 +279,11 @@ def set_rules(myWorld: "FFPSWorld", player: int):
 
 
 # Sets rules on completion condition
-def set_completion_rules(world: MultiWorld, player: int):
+def set_completion_rules(world: MultiWorld, player: int, worldOptions: FFPSOptions):
     completion_requirements = lambda state: \
         state.has("ScrapTrap", player) and \
         state.has("Scrap Baby", player) and \
         state.has("Lefty", player) and \
         state.has("Molten Freddy", player) and \
-        state.has("Saturday Unlock", player)
+        (state.has("Saturday Unlock", player) or not worldOptions.day_sanity.value)
     world.completion_condition[player] = lambda state: completion_requirements(state)
